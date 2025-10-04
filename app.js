@@ -3,6 +3,7 @@ const app=express();
 const Listing=require("./models/listing.js");
 const mongoose =require("mongoose");
 const path=require("path");
+const ejsMate = require("ejs-mate");
 
 main().then(()=>{
     console.log("mongoose connected...")
@@ -19,8 +20,10 @@ app.use(express.urlencoded({extended : true}));
 const methodOverride = require("method-override");
 const { arrayBuffer } = require("stream/consumers");
 app.use(methodOverride("_method"));
+app.engine('ejs', ejsMate);
+app.use(express.static(path.join(__dirname,"/public")));
 app.get("/",(req,res)=>{
-    res.send(" hey buddy i am vishal....");
+    res.redirect("/listings");
 })
 
 // app.get("/testJisting",async (req,res)=>{
