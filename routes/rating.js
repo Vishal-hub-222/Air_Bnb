@@ -5,6 +5,7 @@ const ExpressError =require("../utils/ExpressError.js");
 const {listingSchema,reviewSchema} = require("../schema.js");
 const Review = require("../models/rating.js");
 const Listing=require("../models/listing.js");
+const {islogedin, isReviwAuthor }=require("../middleware.js")
 
 const vailidateRating=(req,res,next)=>{
     let {error}= reviewSchema.validate(req.body);
@@ -17,26 +18,12 @@ const vailidateRating=(req,res,next)=>{
     next();
   }
 };
-
+const createReview = require("../controllers/reviews.js");
 //create review 
 
-router.post("/review",vailidateRating,wrapAsync(async(req,res)=>
-{
-  const listing= await Listing.findById(req.params.id)
- const review=new Review(req.body.review);
- listing.reviews.push(review);
- await review.save();
- await listing.save();
- res.redirect(`/listings/${listing.id}`)
-}));
+router.post("/review",islogedin,vailidateRating,wrapAsync(createReview.Createreview));
 
 //delete review
-router.delete("/delete/:reviewid",wrapAsync( async(req,res)=>
-{
-  let{id,reviewid}=req.params;
-  await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewid}});
-   await Review.findByIdAndDelete(reviewid);
- res.redirect(`/listings/${id}`);
-}));
+router.delete("/delete/:reviewid",islogedin,isReviwAuthor,wrapAsync(createReview.deleteReview ));
 
 module.exports=router;

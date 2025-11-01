@@ -13,6 +13,10 @@ const ratingSchema= new schema({
     createAt:{
         type:Date,
         default:Date.now()
+    },
+    author: {
+        type :schema.Types.ObjectId,
+        ref:"User"
     }
 
 });

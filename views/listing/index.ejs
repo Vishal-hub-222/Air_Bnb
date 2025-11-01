@@ -1,5 +1,6 @@
 <% layout("/layouts/boilerplate") %>
 <body>
+  <%=success%>
     <h3>all Listings</h3>
     <!-- <form method="get" action="/listings/new">
         <button>create new listing</button>
@@ -8,7 +9,7 @@
     <%for(let i of allListing) { %>
       <a href="/listings/<%= i.id %>" class="listings-link">
    <div class="card col listing-card">
-  <img src="<%= i.image%>" class="card-img-top"style="height: 20rem; alt="listing image">
+  <img src="<%= i.image.url%>" class="card-img-top"style="height: 20rem; alt="listing image">
   <div class="card-body">
     <p class="card-text"><b><%= i.title%></b>
     <br>
