@@ -66,10 +66,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// app.get("/",(req,res)=>{
-//     console.log(req.session);
-//     res.send("hi ,I am root");
-// })
+
 app.use((req,res,next)=>{
      res.locals.success=req.flash("success");
      res.locals.error=req.flash("error");
@@ -80,7 +77,10 @@ app.use((req,res,next)=>{
 app.use("/listings",listingsRoute);
 app.use("/listings/:id",reviewRoute);
 app.use("/",userRoute)
-
+app.get("/",(req,res)=>{
+    res.redirect("/listings");
+   
+});
 //review route
 
 
