@@ -82,7 +82,9 @@ app.get("/",(req,res)=>{
    
 });
 //review route
-
+app.get('/vishal',(req,res)=>{
+    res.send("i am vishal");
+});
 
 app.use((err,req,res,next)=>
 {
