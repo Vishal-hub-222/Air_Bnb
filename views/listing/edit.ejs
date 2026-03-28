@@ -22,6 +22,7 @@
          <input name="listing[image]"   type="file" class="form-control" >
           <div class="invalid-feedback">Image should be valid  </div>
     </div>
+    
     <div class="row">
           <div class="mb-3 col-md-4">
         <lable for="price" class="form-label" >price</lable>
@@ -36,12 +37,27 @@
     </div>
     </div>
      
-      
-    <div class="mb-3">
+      <div class="row">
+        <div class="mb-3 col-md-4">
           <lable for="location" class="form-label" >location</lable>
          <input name="listing[location]" value="<%=listing.location%>"  type="text" class="form-control" required>
           <div class="invalid-feedback">Location should be valid  </div>
-    </div>
+    </div> 
+    <div class=" md-3 col-md-4">
+        <label for="categories " class="form-label">Select Catagory</label>
+   <% let categories = ["Room","Iconic Cities","Mountains","Castles","Amazing Pools","Camping","Boats"]; %>
+<select name="listing[category]" class="form-select" id="categories>
+  <option value=""> Category</option>
+
+  <% categories.forEach(cat => { %>
+    <option value="<%= cat %>" <%= listing.category === cat ? "selected" : "" %>>
+      <%= cat %>
+    </option>
+  <% }) %>
+</select>
+  </div>
+</div>
+    
          <button class="btn btn-dark add-btn">submit</button> 
          <br>
          <br>

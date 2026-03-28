@@ -13,7 +13,10 @@ const ListingSchema=new schema({
     url:String,
     filename: String,
 },
-
+   category: {
+    type:String,
+    enum:["Room","Iconic Cities","Mountains","Castles","Amazing Pools","Camping","Boats"],
+},
     price: Number,
     location:String,
     country:String,
@@ -26,7 +29,7 @@ const ListingSchema=new schema({
         ref:"User"
     }
 
-});
+}, { timestamps: true });
 
 
 ListingSchema.post("findOneAndDelete",async (listing)=>{

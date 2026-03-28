@@ -8,15 +8,17 @@
          <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="listing_image">
   <div class="card-body">
     <p class="card-text">
-     <p>owned by :<i> <b><%= listing.owner.username %></b></i></p>
+     <p> <strong> owned by : </strong><i><%= listing.owner.username %></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Created on:</strong><i> <%= listing.createdAt.toDateString() %></i></p>
      <%= listing.description%><br>
     &#8377;<%=listing.price ? listing.price.toLocaleString("en-IN") :"1200"%>/nigth<br>
     <%= listing.location%><br>
-    <%= listing.country%>
+    <%= listing.country%><br>
+    <%= listing.category %>
     </p>
   </div>
   </div>
  <% if(CurrrentUser && CurrrentUser._id.equals(listing.owner._id)) { %>
+   
   <div class="btn">
    
         <form method="get" action="/listings/<%=listing._id%>/edit">

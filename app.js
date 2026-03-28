@@ -18,7 +18,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy=require("passport-local");
 const User=require("./models/user.js");
-
+app.use(express.static("public"));
 main().then(()=>{
     console.log("mongoose connected...");
 })
@@ -34,6 +34,7 @@ app.set("views",path.join(__dirname,"views"));
 app.use(express.urlencoded({extended : true}));
 app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
+app.use(express.json());
 app.use(express.static(path.join(__dirname,"/public")));
 const store = MongoStore.create({
     mongoUrl:process.env.ATLASDB_URL,
@@ -83,12 +84,12 @@ app.get("/",(req,res)=>{
 });
 //review route
 
-
 app.use((err,req,res,next)=>
 {
    
    res.render("./listing/error.ejs",{err});
 });
+
 
 app.listen(3000,()=>
 {

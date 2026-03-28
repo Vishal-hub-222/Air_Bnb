@@ -1,11 +1,35 @@
 const Listing = require("../models/listing");
 
+const categories = ["Trending","Room","Iconic Cities","Mountains","Castles","Amazing Pools","Camping","Boats"];
 
-module.exports.index = async (req,res) =>{
-const allListing = await Listing.find({});
-res.render("listing/index.ejs",{allListing});
+module.exports.index = async (req, res) => {
+  const { search } = req.query;
+  let allListing;
+
+  if (search === "Trending") {
+    allListing = await Listing.find({})
+      .sort({ createdAt: -1 })
+      .limit(7);
+  } 
+  // If search matches a category
+  else if (categories.includes(search)) {
+    allListing = await Listing.find({ category: search });
+  } 
+  // Otherwise search by title/location
+  else if (search) {
+    allListing = await Listing.find({
+      $or: [
+        { location: { $regex: search, $options: "i" } },
+        { title: { $regex: search, $options: "i" } }
+      ]
+    });
+  } 
+  else {
+    allListing = await Listing.find({});
+  }
+
+  res.render("listing/index.ejs", { allListing });
 };
-
 
 module.exports.renderNewForm = (req,res)=>{
 res.render("./listing/new.ejs");
@@ -36,8 +60,10 @@ module.exports.showTheListing = async(req,res)=>
 // add route
 
 module.exports.AddListing = async(req, res,next)=>{
+  console.log("vishal ji categoru",req.body);
   let url = req.file.path;
   let filename= req.file.filename;
+  
    const newlisting=new Listing(req.body.listing);
    newlisting.owner = req.user._id;
    newlisting.image = {url, filename};
