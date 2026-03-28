@@ -67,7 +67,7 @@
 /* card  */
 .listing-card{
     border: none !important;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem !important;
 
 }
 .listings-link{
@@ -111,4 +111,14 @@
     bottom: 2rem !important;
     left: 11rem !important;
 
+}
+.fixed-img {
+  height: 400px;
+  width: 100%;
+  object-fit: cover;
+}
+@media (max-width: 576px) {
+  .fixed-img {
+    height: 220px;
+  }
 }

@@ -195,3 +195,16 @@
   -webkit-transition: background-position .7s;
   transition: background-position .7s;
 }
+.review-card {
+  border-radius: 12px !important;
+}
+
+@media (max-width: 576px) {
+  .review-card {
+    padding: 0.5rem !important;
+  }
+
+  .card-text {
+    font-size: 14px !important;
+  }
+}

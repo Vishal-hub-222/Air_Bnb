@@ -1,11 +1,11 @@
 <% layout("/layouts/boilerplate") %>
    
-    <div class="row mt-3">
+    <div class="row mt-3 ">
         <div class="col-8 offset-2">
              <h3> <%= listing.title%></h3>
              </div>
-<div class="card col-6 offset-2 listing-card">
-         <img src="<%=listing.image.url%>" class="card-img-top show-img" alt="listing_image">
+<div class="card col-8 offset-2  listing-card">
+         <img src="<%=listing.image.url%>" class="card-img-top fixed-img show-img" alt="listing_image">
   <div class="card-body">
     <p class="card-text">
      <p> <strong> owned by : </strong><i><%= listing.owner.username %></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Created on:</strong><i> <%= listing.createdAt.toDateString() %></i></p>
@@ -72,21 +72,42 @@
  <% } %>
  <hr>
  <div class="row">
-    <p><b>Rating & Reviews </b></p>
-    <% for(let review of  listing.reviews) { %>
-        <div class="card col-5 ms-5 mb-3">
-            <div class="card-body ">
-                <h5 class="card-title">@<%= review.author.username%></h5>
-             
-                 <p class="starability-result card-text" data-rating="<%=review.rating%>">
-  </p>   <p class="card-text"><%=review.comment%></p>
-            </div>
- <form action="/listings/<%=listing._id%>/delete/<%= review._id %>?_method=DELETE" method="post">
-    <button class="btn btn-dark p-1 mb-2 mt-2" >DELETE</button>
- </form>
+  <p class="fw-bold">Rating & Reviews</p>
+
+  <% for(let review of listing.reviews) { %>
+    
+    <div class="col-12 col-md-6 mb-3">
+      <div class="card shadow-sm h-100 review-card">
+        
+        <div class="card-body p-2">
+          
+          <!-- Username -->
+          <h6 class="card-title mb-1">
+            👤 @<%= review.author.username %>
+          </h6>
+
+          <!-- Stars -->
+          <p class="starability-result mb-2" data-rating="<%= review.rating %>"></p>
+
+          <!-- Comment -->
+          <p class="card-text small text-muted">
+            <%= review.comment %>
+          </p>
+
+        </div>
+
+        <!-- Delete Button -->
+        <div class="card-footer bg-white border-0 text-end">
+          <form action="/listings/<%=listing._id%>/delete/<%= review._id %>?_method=DELETE" method="post">
+            <button class="btn btn-sm btn-outline-danger">Delete</button>
+          </form>
+        </div>
+
       </div>
-   <% }%>
- </div>
+    </div>
+
+  <% } %>
+</div>
  </div>
  </div>
     
